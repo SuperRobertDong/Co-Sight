@@ -412,16 +412,55 @@ which python
 
 ---
 
+## ✅ 步骤6执行记录
+
+**执行时间**: 2025年1月
+
+**实际执行的操作**:
+1. ✅ 确认.env文件存在
+2. ✅ 确认所有配置已完成：
+   - MODEL配置：通义千问Plus ✅
+   - 搜索引擎API：已留空（使用内置百度搜索）✅
+   - Browser Use Config：使用默认值 ✅
+   - 数据库和其他中间件：不需要配置 ✅
+
+**状态**: ✅ 步骤6完成，配置验证通过
+
+---
+
 ## 步骤7️⃣：启动服务
 
-### 7.1 启动FastAPI服务器
+### 7.1 激活虚拟环境
+
+**重要**：启动服务前，必须先激活虚拟环境！
+
+在项目根目录执行：
 
 ```bash
-# 确保在项目根目录，虚拟环境已激活
+source venv/bin/activate
+```
+
+**激活成功的标志**：你的命令行提示符前面会显示 `(venv)`
+
+```
+(venv) user@computer:~/Co-Sight$ 
+```
+
+### 7.2 启动FastAPI服务器
+
+确保虚拟环境已激活后，执行启动命令：
+
+```bash
 python cosight_server/deep_research/main.py
 ```
 
-### 7.2 查看启动日志
+**或者，如果你想一次性执行（推荐）**：
+
+```bash
+source venv/bin/activate && python cosight_server/deep_research/main.py
+```
+
+### 7.3 查看启动日志
 
 启动成功后，你应该看到类似以下的输出：
 
@@ -429,8 +468,10 @@ python cosight_server/deep_research/main.py
 已成功加载.env配置文件
 === 环境变量检查 ===
 ✓ API_KEY = sk-****
-✓ API_BASE_URL = https://api.deepseek.com/v1
-✓ MODEL_NAME = deepseek-chat
+✓ API_BASE_URL = https://dashscope.aliyuncs.com/compatible-mode/v1
+✓ MODEL_NAME = qwen-plus
+✓ MAX_TOKENS = 4096
+✓ TEMPERATURE = 0.2
 ...
 INFO:     Started server process [xxxxx]
 INFO:     Waiting for application startup.
@@ -438,6 +479,12 @@ INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:7788 (Press CTRL+C to quit)
 【提示】请在浏览器访问: http://localhost:7788/cosight/
 ```
+
+**关键信息**：
+- ✅ 看到"已成功加载.env配置文件" - 说明配置加载成功
+- ✅ 看到环境变量检查的✓标记 - 说明配置正确
+- ✅ 看到"Uvicorn running on http://0.0.0.0:7788" - 说明服务启动成功
+- ✅ 看到访问地址提示 - 可以打开浏览器访问
 
 ### 7.3 如果启动失败
 
