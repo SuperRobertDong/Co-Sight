@@ -486,12 +486,55 @@ INFO:     Uvicorn running on http://0.0.0.0:7788 (Press CTRL+C to quit)
 - ✅ 看到"Uvicorn running on http://0.0.0.0:7788" - 说明服务启动成功
 - ✅ 看到访问地址提示 - 可以打开浏览器访问
 
-### 7.3 如果启动失败
+### 7.4 如果启动失败
+
+**常见问题排查**：
 
 **错误1: ModuleNotFoundError**
 ```bash
 # 检查是否在虚拟环境中
 which python
+
+# 如果不在虚拟环境，先激活
+source venv/bin/activate
+
+# 重新安装依赖
+pip install -r requirements.txt
+```
+
+**错误2: 端口被占用**
+```bash
+# macOS/Linux: 查看占用7788端口的进程
+lsof -i :7788
+
+# 终止占用端口的进程（替换xxxxx为实际进程ID）
+kill -9 xxxxx
+
+# 或者修改端口（编辑 cosight_server/deep_research/common/config.py）
+# 将 "search_port": "7788" 改为其他端口，如 "8080"
+```
+
+**错误3: 环境变量未加载**
+- 确认 `.env` 文件在项目根目录
+- 检查 `.env` 文件格式是否正确（没有多余的空格或引号）
+- 确认 API_KEY 已正确配置
+
+**错误4: API连接失败**
+- 检查网络连接
+- 确认 API_KEY 是否正确
+- 确认 API_BASE_URL 是否正确（通义千问应该是：https://dashscope.aliyuncs.com/compatible-mode/v1）
+
+### 7.5 停止服务
+
+当需要停止服务时，在运行服务的终端窗口按：
+
+```
+Ctrl+C
+```
+
+服务会优雅地停止。
+
+---
 
 # 重新安装依赖
 pip install -r requirements.txt
