@@ -638,6 +638,86 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ---
 
+## 🔧 配置VS Code Debug环境
+
+### 10.1 已创建的配置文件
+
+项目已包含以下VS Code调试配置：
+
+- **`.vscode/launch.json`** - Debug启动配置
+- **`.vscode/settings.json`** - Python环境配置
+- **`.vscode/tasks.json`** - 快速任务配置
+
+### 10.2 如何使用Debug功能
+
+#### 方法1：使用Debug配置（推荐）
+
+1. **打开VS Code**，确保项目根目录已打开
+
+2. **选择Debug配置**：
+   - 点击左侧的"运行和调试"图标（或按 `F5`）
+   - 在顶部下拉菜单中选择：
+     - `Python: Co-Sight Server (FastAPI)` - 直接运行main.py（推荐）
+     - `Python: Co-Sight Server (Uvicorn)` - 使用uvicorn运行（支持热重载）
+     - `Python: Current File` - 调试当前打开的Python文件
+
+3. **开始调试**：
+   - 点击绿色的"开始调试"按钮（或按 `F5`）
+   - 设置断点：在代码行号左侧点击，出现红色圆点
+
+4. **调试功能**：
+   - **断点**：点击行号左侧设置断点
+   - **单步执行**：`F10` (Step Over), `F11` (Step Into), `Shift+F11` (Step Out)
+   - **继续执行**：`F5` (Continue)
+   - **停止调试**：`Shift+F5`
+
+#### 方法2：使用任务（Tasks）
+
+1. 按 `Ctrl+Shift+P` (macOS: `Cmd+Shift+P`) 打开命令面板
+2. 输入 "Tasks: Run Task"
+3. 选择 "启动 Co-Sight Server"
+
+### 10.3 Debug配置说明
+
+**配置1：Python: Co-Sight Server (FastAPI)**
+- 直接运行 `main.py`
+- 使用项目虚拟环境中的Python
+- 自动加载 `.env` 文件
+- 适合普通调试
+
+**配置2：Python: Co-Sight Server (Uvicorn)**
+- 使用uvicorn运行，支持热重载（代码修改后自动重启）
+- 适合开发时频繁修改代码的场景
+- WebSocket最大消息大小：256MB
+
+**配置3：Python: Current File**
+- 调试当前打开的Python文件
+- 适合调试单个脚本
+
+### 10.4 环境变量自动加载
+
+Debug配置已自动配置：
+- ✅ 自动加载 `.env` 文件
+- ✅ 设置正确的 `PYTHONPATH`
+- ✅ 使用虚拟环境中的Python解释器
+
+### 10.5 常见Debug问题
+
+**问题1：找不到Python解释器**
+- 确保虚拟环境已创建：`python3 -m venv venv`
+- VS Code会自动检测，或手动选择：`Cmd+Shift+P` → "Python: Select Interpreter" → 选择 `venv/bin/python`
+
+**问题2：断点不生效**
+- 检查 `justMyCode` 设置（已设置为 `false`，可以调试第三方库）
+- 确保代码已保存
+- 检查断点是否在可执行代码行上
+
+**问题3：导入错误**
+- 检查 `PYTHONPATH` 是否正确设置（已在配置中设置）
+- 确保虚拟环境已激活
+
+---
+
 ## 🆘 需要帮助？
 
 如果遇到问题：
